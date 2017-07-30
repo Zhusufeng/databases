@@ -8,4 +8,7 @@ exports.dbConnection = mysql.createConnection({
   password: 'root', // put in the password
   database: 'chat'
 });
-dbConnection.connect();
+exports.dbConnection.connect(function(err) {
+  if (err) { throw err; }
+  console.log('We are connected to the Database chat!');
+});

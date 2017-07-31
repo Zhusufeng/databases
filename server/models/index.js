@@ -23,7 +23,8 @@ module.exports = {
       console.log('You are in POST messages inside models/index.js');
 
       var queryString = 'INSERT INTO messages(message, userid, roomname) \
-                         values (' + params.message + ', (SELECT id FROM users WHERE username = ' + params.username + 'limit 1), '+ params.roomname + ')';
+                         VALUES (' + params.message + ', (SELECT id FROM users WHERE \
+                         username = ' + params.username + 'limit 1), '+ params.roomname + ')';
       db.query(queryString, function(err, results) {
         if (err) { throw err; }
         callback(results);
@@ -47,9 +48,16 @@ module.exports = {
       });
     },
 
-    post: function () { // a function which can be used to insert a user into the database
+    post: function (param, callback) { // a function which can be used to insert a user into the database
       // Contact database
       // Save data to database
+      console.log('You are in POST users inside models/index.js');
+
+      var queryString = 'INSERT INTO users(username) VALUES (' + param.username + ')';
+      db.query(queryString, function(err, results) {
+        if (err) { throw err; }
+        callback(results);
+      });
     }
   }
 };

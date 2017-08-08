@@ -1,4 +1,5 @@
 var models = require('../models');
+require('manakin').global;
 
 module.exports = {
   messages: {
@@ -18,10 +19,11 @@ module.exports = {
       console.log('You are in POST messages inside controllers/index.js');
 
       // MySQL takes in array
-      var params = [ req.body[text], req.body[username], req.body[roomname] ];
+      var params = [ req.body[message], req.body[username], req.body[roomname] ];
       models.messages.post(params, function(err, results) {
         if (err) { throw err; }
-        res.json(results);
+        // res.json(results);
+        res.sendStatus(201);
       }); // may need promise since async code
     }
   },
@@ -46,7 +48,8 @@ module.exports = {
       var params = [ req.body[username] ];
       models.users.post(params, function(err, results) {
         if (err) { throw err; }
-        res.json(results);
+        // res.json(results);
+        res.sendStatus(201);
       }); // may need promise since async code
     }
   }
